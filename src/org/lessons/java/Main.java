@@ -1,5 +1,7 @@
 package org.lessons.java;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -10,8 +12,8 @@ public class Main {
         Book[] library = new Book[n];
         boolean validInput;
         for (int i = 0; i < n; i++){
-            validInput = true;
-            while (validInput){
+            validInput = false;
+            while (!validInput){
                 System.out.println("Title: ");
                 String title = scan.nextLine();
                 System.out.println("Pages: ");
@@ -23,12 +25,25 @@ public class Main {
                 try{
                     Book book = new Book(title, pages, author, publisher);
                     library[i] = book;
-                    System.out.println("Book: " + book.getTitle() + "added to your library.");
-                    validInput = false;
+                    System.out.println("Book: '" + book.getTitle() + "' added to your library.");
+                    validInput = true;
                 }catch (IllegalArgumentException e){
                     System.out.println(e.getMessage());
                 }
             }
         }
+
+        FileWriter myFile;
+        try{
+            myFile = new FileWriter("./my-library.txt");
+            for(int i = 0; i < library.length; i++){
+                myFile.write(i+1 + ". " + library[i].toString() + "\n");
+                System.out.println(i+1 + " Title: " + library[i].getTitle());
+            }
+            myFile.close();
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        scan.close();
     }
 }

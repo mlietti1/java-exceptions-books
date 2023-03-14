@@ -22,6 +22,8 @@ public class Main {
                 String publisher = scan.nextLine();
                 try{
                     Book book = new Book(title, pages, author, publisher);
+                    library[i] = book;
+                    System.out.println("Book: " + book.getTitle() + "added to your library.");
                     validInput = false;
                 }catch (IllegalArgumentException e){
                     System.out.println(e.getMessage());

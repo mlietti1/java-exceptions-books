@@ -19,6 +19,9 @@ public class Book {
     }
 
     public void setTitle(String title) {
+        if(title.length() < 1){
+            throw new IllegalArgumentException("The title must be at least 1 char.");
+        }
         this.title = title;
     }
 
@@ -27,6 +30,9 @@ public class Book {
     }
 
     public void setPages(int pages) {
+        if(pages < 1){
+            throw new IllegalArgumentException("There must be more than 0 pages.");
+        }
         this.pages = pages;
     }
 
@@ -35,6 +41,9 @@ public class Book {
     }
 
     public void setAuthor(String author) {
+        if(author.length() < 1){
+            throw new IllegalArgumentException("The author must be at least 1 char.");
+        }
         this.author = author;
     }
 
@@ -43,6 +52,10 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
+        if(publisher.length() < 1){
+            throw new IllegalArgumentException("The publisher must be at least 1 char.");
+        }
         this.publisher = publisher;
     }
+
 }

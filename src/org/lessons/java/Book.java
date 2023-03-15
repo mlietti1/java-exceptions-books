@@ -2,12 +2,26 @@ package org.lessons.java;
 
 public class Book {
 
-    private String title;
-    private int pages;
-    private String author;
-    private String publisher;
+    private String title; // not empty
+    private int pages; // > 0
+    private String author; // not empty
+    private String publisher; // not empty
 
-    public Book(String title, int pages, String author, String publisher) {
+    public Book(String title, int pages, String author, String publisher) throws IllegalArgumentException {
+        String exceptionMessage = "";
+        if(isEmptyString(title)){
+            exceptionMessage += "The title shouldn't be empty.";
+        }
+        if(isEmptyString(author)){
+            exceptionMessage += "The author shouldn't be empty.";        }
+        if(isEmptyString(publisher)){
+            exceptionMessage += "The publisher shouldn't be empty.";        }
+        if(pages <= 0){
+            exceptionMessage += "The number of pages should be greater than 0.";
+        }
+        if(exceptionMessage.length() > 0){
+            throw new IllegalArgumentException(exceptionMessage);
+        }
         this.title = title;
         this.pages = pages;
         this.author = author;
@@ -18,9 +32,9 @@ public class Book {
         return title;
     }
 
-    public void setTitle(String title) {
-        if(title.length() < 1){
-            throw new IllegalArgumentException("The title must be at least 1 char.");
+    public void setTitle(String title) throws IllegalArgumentException {
+        if(isEmptyString(title)){
+            throw new IllegalArgumentException("The title shouldn't be empty.");
         }
         this.title = title;
     }
@@ -29,9 +43,9 @@ public class Book {
         return pages;
     }
 
-    public void setPages(int pages) {
+    public void setPages(int pages) throws IllegalArgumentException {
         if(pages < 1){
-            throw new IllegalArgumentException("There must be more than 0 pages.");
+            throw new IllegalArgumentException("The number of pages should be greater than 0.");
         }
         this.pages = pages;
     }
@@ -40,9 +54,9 @@ public class Book {
         return author;
     }
 
-    public void setAuthor(String author) {
-        if(author.length() < 1){
-            throw new IllegalArgumentException("The author must be at least 1 char.");
+    public void setAuthor(String author) throws IllegalArgumentException {
+        if(isEmptyString(author)){
+            throw new IllegalArgumentException("The author shouldn't be empty.");
         }
         this.author = author;
     }
@@ -51,11 +65,15 @@ public class Book {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
-        if(publisher.length() < 1){
-            throw new IllegalArgumentException("The publisher must be at least 1 char.");
+    public void setPublisher(String publisher) throws  IllegalArgumentException {
+        if(isEmptyString(publisher)){
+            throw new IllegalArgumentException("The publisher shouldn't be empty.");
         }
         this.publisher = publisher;
+    }
+
+    private boolean isEmptyString(String s){
+        return s == null || s.trim().isEmpty();
     }
 
     @Override
